@@ -90,9 +90,10 @@ sap.ui.define([
         };
 
         function toDetails(oEvent){
+            const employeeID = oEvent.getSource().getBindingContext("northwind").getObject().EmployeeID;
             const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo ("RouteDetails", {
-                
+                employeeID: employeeID
             });
         }
 

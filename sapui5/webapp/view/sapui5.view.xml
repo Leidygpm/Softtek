@@ -48,7 +48,7 @@
                          <ColumnListItem type="Navigation" press="toDetails">
                          <cells>
                          <Label text="{northwind>EmployeeID}"></Label>
-                         <Label text="{northwind>LastName},{northwind>FistName}"></Label>
+                         <Label text="{northwind>LastName},{northwind>FirstName}"></Label>
                          <Label text="{northwind>Country}"></Label>
                          <core:Icon src="sap-icon://show" press ="onShowRequest"></core:Icon>
                          </cells>

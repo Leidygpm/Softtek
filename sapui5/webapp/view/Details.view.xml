@@ -13,6 +13,9 @@
 <Button icon="sap-icon://nav-back" press="onBack"></Button>
 </contentLeft>
 
+<contentMiddle>
+<Text  text="{northwind>FirstName},{northwind>LastName}"></Text>
+</contentMiddle>
 </Bar>
 
 
