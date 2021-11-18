@@ -91,7 +91,9 @@ sap.ui.define([
 
         function toDetails(oEvent){
             const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo ("RouteDetails", {});
+            oRouter.navTo ("RouteDetails", {
+                
+            });
         }
 
 

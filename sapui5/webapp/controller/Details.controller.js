@@ -14,7 +14,15 @@ sap.ui.define([
             },
             onBack: function(oEvent){
                 const oHistory = History.getInstance();
-                const oPrevious = oHistory.getPreviousHash();
+                const sPrevious = oHistory.getPreviousHash();
+                if (sPrevious !== undefined){
+                    window.history.go(-1);
+                    
+                }
+                else{
+                    const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                    oRouter.navTo("Routesapui5");
+                                }
             }
         })
 

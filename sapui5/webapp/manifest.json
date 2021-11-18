@@ -103,7 +103,7 @@
                 },
                 {
                     "name": "RouteDetails",
-                    "pattern": "details",
+                    "pattern": "details/{employeeID}",
                     "target": [
                         "TargetDetails"
                     ]
