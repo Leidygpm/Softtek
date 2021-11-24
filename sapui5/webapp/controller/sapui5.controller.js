@@ -1,17 +1,18 @@
+// @ts-nocheck
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    //"sap/ui/core/mvc/Controller",
+    "lgpm/accounts/controller/Base.controller",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator"
 
 ],
 	/**
-	 * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.model.json.JSONModel} JSONModel
      * @param {typeof sap.ui.model.Filter} Filter
      * @param {typeof sap.ui.model.FilterOperator} FilterOperator
 	 */
-    function (Controller, JSONModel, Filter, FilterOperator) {
+    function (Base, JSONModel, Filter, FilterOperator) {
         "use strict";
 
         function onInit() {
@@ -44,50 +45,50 @@ sap.ui.define([
             oBinding.filter(aFilters);
         };
 
-        function onShowRequest(oEvent){
-        const $tableRequests = this.getView().byId("tableRequests");
-        $tableRequests.destroyItems();
-        const pressedItem = oEvent.getSource();
-        const oContext = pressedItem.getBindingContext("northwind");
-        //const sPath= oContext.getPath();
-        const objectContext = oContext.getObject();
-        const employeeID = objectContext.EmployeeID;
+        // function onShowRequest(oEvent){
+        // const $tableRequests = this.getView().byId("tableRequests");
+        // $tableRequests.destroyItems();
+        // const pressedItem = oEvent.getSource();
+        // const oContext = pressedItem.getBindingContext("northwind");
+        // //const sPath= oContext.getPath();
+        // const objectContext = oContext.getObject();
+        // const employeeID = objectContext.EmployeeID;
 
-        //armar lista de solicitudes para el empleado seleccionado
+        // //armar lista de solicitudes para el empleado seleccionado
 
-        let requestItems = [];
-        let reqData = this.getView().getModel("jsonSolicitudesModel").getData().solicitudes;
+        // let requestItems = [];
+        // let reqData = this.getView().getModel("jsonSolicitudesModel").getData().solicitudes;
 
-        //FilterOperator
-            let reqFiltered = [];
-            reqFiltered = reqData.filter((elem)=>{
-                return elem.empleadoId === employeeID;
-            });
+        // //FilterOperator
+        //     let reqFiltered = [];
+        //     reqFiltered = reqData.filter((elem)=>{
+        //         return elem.empleadoId === employeeID;
+        //     });
 
-            let aCuentas = reqFiltered[0].cuentas;
+        //     let aCuentas = reqFiltered[0].cuentas;
 
-            //armar tabla
-            for (let i in aCuentas){
-            requestItems.push(new sap.m.ColumnListItem({
-                cells: [
-                    new sap.m.Label({text: aCuentas[i].numero}),
-                    new sap.m.Label({text: aCuentas[i].nombre})
-                ]
-            }));
+        //     //armar tabla
+        //     for (let i in aCuentas){
+        //     requestItems.push(new sap.m.ColumnListItem({
+        //         cells: [
+        //             new sap.m.Label({text: aCuentas[i].numero}),
+        //             new sap.m.Label({text: aCuentas[i].nombre})
+        //         ]
+        //     }));
 
-            };
-            let newTable = new sap.m.Table({
-                width: "auto",
-                columns: [
-                    new sap.m.Column({header: new sap.m.Label({text: "i18n>requestNumber"})}),
-                    new sap.m.Column({header: new sap.m.Label({text: "i18n>requestName"})})
-                ],
+        //     };
+        //     let newTable = new sap.m.Table({
+        //         width: "auto",
+        //         columns: [
+        //             new sap.m.Column({header: new sap.m.Label({text: "i18n>requestNumber"})}),
+        //             new sap.m.Column({header: new sap.m.Label({text: "i18n>requestName"})})
+        //         ],
 
-                items: requestItems
-            });
+        //         items: requestItems
+        //     });
 
-            $tableRequests.addItem(newTable);
-        };
+        //     $tableRequests.addItem(newTable);
+        // };
 
         function toDetails(oEvent){
             const employeeID = oEvent.getSource().getBindingContext("northwind").getObject().EmployeeID;
@@ -98,10 +99,10 @@ sap.ui.define([
         }
 
 //Main
-        var Main = Controller.extend("lgpm.accounts.controller.sapui5", {});
+        var Main = Base.extend("lgpm.accounts.controller.sapui5", {});
         Main.prototype.onInit = onInit;
         Main.prototype.onFilter = onFilter;
-        Main.prototype.onShowRequest = onShowRequest;
+        //Main.prototype.onShowRequest = onShowRequest;
         Main.prototype.toDetails = toDetails;
 
         return Main;
