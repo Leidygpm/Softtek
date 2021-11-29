@@ -59,7 +59,7 @@
 
 <HBox>
 <Button text="{i18n>showRequests}" press="onShowRequest"/>
-
+<Button text="{i18n>createRequest}" press="onCreateRequest" class="sapUiSmallMarginBegin"/>
 </HBox>
 <HBox>
   <core:Fragment fragmentName="lgpm.accounts.fragment.Request" type="XML"/>

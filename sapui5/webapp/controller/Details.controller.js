@@ -4,14 +4,16 @@ sap.ui.define([
     "lgpm/accounts/controller/Base.controller",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/core/Fragment"
 ],
     //Detalle
     /**
        
          * @param {typeof sap.ui.core.routing.History} History
          * @param {typeof sap.ui.model.json.JSONModel} JSONModel
+         * @param {typeof sap.ui.core.Fragment} Fragment
          */
-    function (Base, History, JSONModel ) {
+    function (Base, History, JSONModel, Fragment ) {
 
         function _onMatched(oEvent) {
             const employeeID = oEvent.getParameter("arguments").employeeID;
@@ -43,50 +45,26 @@ sap.ui.define([
                     oRouter.navTo("Routesapui5");
                 }
             },
-            // onShowRequest: function (oEvent) {
-            //     const $tableRequests = this.getView().byId("tableRequests");
-            //     $tableRequests.destroyItems();
-            //     const pressedItem = oEvent.getSource();
-            //     const oContext = pressedItem.getBindingContext("northwind");
-            //     //const sPath= oContext.getPath();
-            //     const objectContext = oContext.getObject();
-            //     const employeeID = objectContext.EmployeeID;
+            onCreateRequest: function(){
+                 const oView = this.getView();
+                 if (!this.byId("newRequestDialog")){
+                     Fragment.load( {
+                         id: oView.getId(),
+                         name: "lgpm.accounts.fragment.NewRequestDialog",
+                         controller: this
+                     }).then(function(oDialog){
+                         oView.addDepedent(oDialog);
+                         oDialog.open();
+                     })
+                 }  
+                 else{
+                     this.byId("newRequestDialog").open();
 
-            //     //armar lista de solicitudes para el empleado seleccionado
-
-            //     let requestItems = [];
-            //     let reqData = this.getView().getModel("jsonSolicitudesModel").getData().solicitudes;
-
-            //     //FilterOperator
-            //     let reqFiltered = [];
-            //     reqFiltered = reqData.filter((elem) => {
-            //         return elem.empleadoId === employeeID;
-            //     });
-
-            //     let aCuentas = reqFiltered[0].cuentas;
-
-            //     //armar tabla
-            //     for (let i in aCuentas) {
-            //         requestItems.push(new sap.m.ColumnListItem({
-            //             cells: [
-            //                 new sap.m.Label({ text: aCuentas[i].numero }),
-            //                 new sap.m.Label({ text: aCuentas[i].nombre })
-            //             ]
-            //         }));
-
-            //     };
-            //     let newTable = new sap.m.Table({
-            //         width: "auto",
-            //         columns: [
-            //             new sap.m.Column({ header: new sap.m.Label({ text: "i18n>requestNumber" }) }),
-            //             new sap.m.Column({ header: new sap.m.Label({ text: "i18n>requestName" }) })
-            //         ],
-
-            //         items: requestItems
-            //     });
-
-            //     $tableRequests.addItem(newTable);
-            // }
+                 }
+            },
+            onCloseDialogNewReq : function (){
+                this.byId("newRequestDialog").close();
+            }
         })
 
     }) 
